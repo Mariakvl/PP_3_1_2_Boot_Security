@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New</title>
+</head>
+<body>
+<h2>Add New User</h2>
+<br>
+<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="surname">Surname: </label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <br/>
+    <label for="age">Age: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br/>
+    <label for="username">Username: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <br/>
+    <label for="password">Password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br>
+
+    <!-- Выпадающий список ролей с множественным выбором -->
+    <label for="roles">Roles: </label>
+    <select id="roles" name="selectedRoles" multiple="multiple" class="roles-select">
+        <option th:each="role : ${allRoles}"
+                th:value="${role.id}"
+                th:text="${role.role}"
+                th:selected="${user.roles.contains(role)}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <input type="submit" value="Add New User"/>
+</form>
+
+</body>
+</html>

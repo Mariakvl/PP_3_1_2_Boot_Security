@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <style>
+        .roles-select {
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<h2>Edit User</h2>
+<br>
+<form th:method="POST" th:action="@{/admin/update}" th:object="${user}">
+    <input type="hidden" name="id" th:value="*{id}"/>
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name" required/>
+    <br/><br/>
+    <label for="surname">Surname: </label>
+    <input type="text" th:field="*{surname}" id="surname" required/>
+    <br/><br/>
+    <label for="age">Age: </label>
+    <input type="text" th:field="*{age}" id="age" required/>
+    <br/><br/>
+    <label for="username">Username: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <br/><br/>
+    <label for="password">Password: </label>
+    <input type="password" th:field="*{password}" id="password" placeholder="Leave empty to keep current password"/>
+    <br><br/>
+    <!-- Выпадающий список ролей с множественным выбором -->
+    <label for="roles">Roles: </label>
+    <select id="roles" name="selectedRoles" multiple="multiple" class="roles-select">
+        <option th:each="role : ${allRoles}"
+                th:value="${role.id}"
+                th:text="${role.role}"
+                th:selected="${user.roles.contains(role)}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <input type="submit" value="Edit User"/>
+</form>
+
+</body>
+</html>
